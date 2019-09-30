@@ -8,8 +8,8 @@ self.addEventListener('install', function(e) {
 	console.log('install')
 })
 
-if (!workbox) {
-	return console.log(456465465)
+if (workbox) {
+	console.log(456465465797)
 }
 
 workbox.routing.registerRoute(
