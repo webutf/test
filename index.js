@@ -1,6 +1,6 @@
 
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker.register('./sw.js').then(res => {
+	navigator.serviceWorker.register('./mods/sw.js').then(res => {
 		console.log(res)
 	}).catch(error => {
 
