@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>XUI框架介绍,开发指南</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="keywords" content="XUI框架介绍, 开发指南" />
+    <meta name="description" content="XUI框架介绍, 开发指南" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="http://images.efunds.com.cn/data/bulletin/20200103/易方达消费行业股票型证券投资基金更新的招募说明书摘要.pdf" target="pdfContainer">测试pdf</a>
+
+    <!-- <iframe src="" frameborder="0" id="pdfContainer" name="pdfContainer"></iframe> -->
+    <div id="box"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/pdf.min.js"></script>
+    <script src="./js/pdf.worker.min.js"></script>
+    <script>
+      var loadingTask = pdfjsLib.getDocument('./test.pdf');
+      let winW = document.documentElement.clientWidth
+      loadingTask.promise.then(function (pdf) {
+        let pageNum = 1 || pdf.numPages
+        for (let i = 1; i <= pageNum; i++) {
+          pdf.getPage(i).then(function (page) {
+            let viewport = page.getViewport(1)
+            let scale = (winW / viewport.width).toFixed(2)
+            let scaledViewport = page.getViewport(scale)
+            var canvas = $("<canvas>").attr({ id: 'the-canvas' + i });
+            $("#box").append(canvas);
+            console.log(canvas)
+            let context = canvas.getContext('2d')
+            canvas.height = scaledViewport.height
+            canvas.width = scaledViewport.width
+            let renderContext = {
+              canvasContext: context,
+              viewport: scaledViewport
+            }
+            let renderTask = page.render(renderContext)
+            
+            renderTask.then(function () {
+            })
+          })
+        }
+
+
+        // pdf.getPage(2).then(function (page) {
+        //   var viewport = page.getViewport({ scale: 1, });
+        //   var scale = winW / viewport.width;
+        //   var viewport = page.getViewport({ scale: scale, });
+
+        //   var canvas = document.getElementById('the-canvas');
+        //   var context = canvas.getContext('2d');
+        //   console.log(viewport)
+        //   canvas.height = viewport.height;
+        //   canvas.width = viewport.width;
+
+        //   var renderContext = {
+        //     canvasContext: context,
+        //     viewport: viewport
+        //   };
+        //   page.render(renderContext);
+        // });
+      });
+    </script>
+  </body>
+
+</html>
