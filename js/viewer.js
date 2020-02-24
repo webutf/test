@@ -10,7 +10,7 @@ var CMAP_PACKED = true;
 
 pdfjsLib.GlobalWorkerOptions.workerSrc ="https://cdn.bootcss.com/pdf.js/2.3.200/pdf.worker.min.js";
 
-var DEFAULT_URL = "../test.pdf";
+var DEFAULT_URL = "./test.pdf";
 var DEFAULT_SCALE_DELTA = 1.1;
 var MIN_SCALE = 0.25;
 var MAX_SCALE = 10.0;
