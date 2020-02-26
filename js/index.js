@@ -2,21 +2,14 @@ if (!pdfjsLib.getDocument || !pdfjsViewer.PDFViewer) {
   alert("Please build the pdfjs-dist library using\n  `gulp dist-install`");
 }
 
-// The workerSrc property shall be specified.
-//
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  "../../node_modules/pdfjs-dist/build/pdf.worker.js";
-
 // Some PDFs need external cmaps.
 //
-var CMAP_URL = "../../node_modules/pdfjs-dist/cmaps/";
+var CMAP_URL = "../cmaps/";
 var CMAP_PACKED = true;
 
 var DEFAULT_URL = "./test.pdf";
 
 var container = document.getElementById("viewerContainer");
-
-// (Optionally) enable hyperlinks within PDF files.
 var pdfLinkService = new pdfjsViewer.PDFLinkService();
 
 var pdfViewer = new pdfjsViewer.PDFViewer({
